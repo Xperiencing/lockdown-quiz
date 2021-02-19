@@ -1,0 +1,8 @@
+<form [formGroup]="usernameForm" (ngSubmit)="onSubmit()">
+    <label for="username">
+        Username
+    </label>
+    <input id="username" type="text" formControlName="username">
+
+    <button type="submit" id="submit-button">Submit</button>
+</form>

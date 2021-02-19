@@ -1,0 +1,11 @@
+<div *ngIf="usernameSelectStage">
+    <app-enter-name (usernameSelect)="onUserNameEntered($event)"></app-enter-name>
+</div>
+
+<div *ngIf="lobbyListStage">
+    <app-lobby-list [userList]="userList" (shouldStartGame)="onShouldStartGame()"></app-lobby-list>
+</div>
+
+<div *ngIf="playTabbo">
+    <app-taboo [userList]="userList"></app-taboo>
+</div>
