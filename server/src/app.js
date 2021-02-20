@@ -13,6 +13,10 @@ io.on("connection", socket => {
       previousId = currentId;
     }
 
+    const emitUserList = roomId => {
+      io.to(roomId).emit("userList", roomList.find(x => x.roomId == roomId).userList);
+    }
+
     socket.on("joinRoom", user => {
       safeJoin(user.roomId);
 
@@ -24,7 +28,17 @@ io.on("connection", socket => {
         roomList.push({ roomId: user.roomId, userList: [user.username] });
       }
 
-      io.in(user.roomId).emit("userList", roomList.find(x => x.roomId == user.roomId).userList);
+      emitUserList(user.roomId);
+
+      socket.on('disconnect', () => {
+        let room = roomList.find(x => x.roomId == user.roomId);
+
+        if(room && room.userList.includes(user.username)) {
+          room.userList = room.userList.filter(username => username != user.username)
+        }
+        console.log(`Socket ${socket.id} disconnected from room ${user.roomId}`);
+        emitUserList(user.roomId);
+      });
     });
 
     socket.on("sendMessageTaboo", message => {

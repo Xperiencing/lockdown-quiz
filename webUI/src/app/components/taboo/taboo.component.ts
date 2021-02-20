@@ -70,7 +70,7 @@ export class TabooComponent implements OnInit, OnDestroy {
   private chooseCard() {
     let tempCard = Math.floor(Math.random() * Math.floor(this.tabooWordset.length));
     
-    this.tabooWordset[tempCard]
+    this.currentWord = this.tabooWordset[tempCard];
   }
 
   private goToNextCard() {
