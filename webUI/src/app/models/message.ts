@@ -1,9 +1,11 @@
+import { User } from "./user";
+
 export class Message {
-    user: string;
+    user: User;
     text: string;
     isCorrect: boolean;
 
-    constructor(user: string, text: string) {
+    constructor(user: User, text: string) {
         this.user = user;
         this.text = text;
         this.isCorrect = false;

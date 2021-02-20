@@ -2,9 +2,8 @@ export class User {
     username: string;
     isHost: boolean;
 
-    
-    constructor(username: string, isHost: boolean) {
+    constructor(username: string) {
         this.username = username;
-        this.isHost = isHost;
+        this.isHost = false;
     }
 }

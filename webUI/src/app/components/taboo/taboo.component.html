@@ -13,7 +13,7 @@
 <div>
     <ul>
         <li *ngFor="let message of messageLog">
-            {{ message.user }}: {{ message.text }}
+            {{ message.user.username }}: {{ message.text }}
         </li>
     </ul>
 </div>

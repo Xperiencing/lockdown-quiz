@@ -1,7 +1,9 @@
 <ul>
     <li *ngFor="let user of userList">
-        {{ user }}
+        {{ user.username }} {{ (user.isHost ? "(HOST)" : "") }}
     </li>
 </ul>
 
-<button type="button" (click)="startGame()">Start Game</button>
+<button type="button" [disabled]="!socketService.user.isHost" (click)="startGame()">
+    {{ (this.socketService.user.isHost ? "Start Game" : ("Waiting for " + this.socketService.user.username)) }}
+</button>

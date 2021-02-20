@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
+import { User } from 'src/app/models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -7,14 +8,19 @@ import { Socket } from 'ngx-socket-io';
 export class SocketService {
 
   public roomId: string;
-  public username: string;
+  public user: User;
   
-  userList = this.socket.fromEvent<string[]>('userList');
+  userList = this.socket.fromEvent<User[]>('userList');
+  shouldStartGame = this.socket.fromEvent<boolean>('startGameEvent');
 
   constructor(private socket: Socket) { }
 
-  joinRoom(username: string, roomId: string) {
-    this.socket.emit('joinRoom', { username: username, roomId: roomId });
+  joinRoom(user: User) {
+    this.socket.emit('joinRoom', { user: user, roomId: this.roomId });
+  }
+
+  startGame() {
+    this.socket.emit('startGame', this.roomId );
   }
 
   public newRoomId() {

@@ -11,7 +11,7 @@ export class TabooService {
 
   constructor(private socket: Socket) { }
 
-  public sendMessage(roomId: string, message: Message) {
-    this.socket.emit('sendMessageTaboo', {roomId: roomId, message: message });
+  public sendMessage(roomId: string, message: Message, cardId: number) {
+    this.socket.emit('sendMessageTaboo', {roomId: roomId, message: message, cardId: cardId });
   }
 }

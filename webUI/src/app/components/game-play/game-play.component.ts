@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
+import { User } from 'src/app/models/user';
 import { SocketService } from 'src/app/services/socket/socket.service';
 
 @Component({
@@ -17,23 +18,33 @@ export class GamePlayComponent implements OnInit, OnDestroy {
   public lobbyListStage: boolean = false;
   public playTaboo: boolean = false;
 
-  public userList: string[];
+  public userList: User[];
   private _userListSub: Subscription;
+  private _lobbySub: Subscription;
 
   constructor(private cookieService: CookieService,
     private route: ActivatedRoute,
     private socketService: SocketService) { }
 
   ngOnInit(): void {
-    this._userListSub = this.socketService.userList.subscribe(users => this.userList = users);
+    this.socketService.user = new User("");
+
+    this._userListSub = this.socketService.userList.subscribe(users => { 
+      this.userList = users;
+      this.socketService.user = this.userList.find(x => x.username == this.socketService.user.username);
+    });
+
+    this._lobbySub = this.socketService.shouldStartGame.subscribe(x => {
+      this.startGame();
+    })
 
     this.socketService.roomId = this.route.snapshot.paramMap.get('id');
     this.gameId = this.route.snapshot.paramMap.get('game');
 
     if(this.cookieService.check('lockdown-quiz-username')) {
-      this.socketService.username = this.cookieService.get('lockdown-quiz-username');
+      this.socketService.user.username = this.cookieService.get('lockdown-quiz-username');
 
-      this.socketService.joinRoom(this.socketService.username, this.socketService.roomId);
+      this.socketService.joinRoom(this.socketService.user);
 
       this.lobbyListStage = true;
     }
@@ -48,15 +59,19 @@ export class GamePlayComponent implements OnInit, OnDestroy {
 
   public onUserNameEntered(username: string) {
     this.cookieService.set('lockdown-quiz-username', username);
-    this.socketService.username = username;
+    this.socketService.user.username = username;
 
-    this.socketService.joinRoom(this.socketService.username, this.socketService.roomId);
+    this.socketService.joinRoom(this.socketService.user);
 
     this.usernameSelectStage = false;
     this.lobbyListStage = true;
   }
 
   public onShouldStartGame() {
+    this.socketService.startGame();
+  }
+
+  private startGame() {
     this.lobbyListStage = false;
 
     switch(this.gameId) {

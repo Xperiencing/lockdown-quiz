@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { User } from 'src/app/models/user';
+import { SocketService } from 'src/app/services/socket/socket.service';
 
 @Component({
   selector: 'app-lobby-list',
@@ -7,11 +9,11 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class LobbyListComponent implements OnInit {
 
-  @Input() userList: string[];
+  @Input() userList: User[];
 
   @Output() shouldStartGame: EventEmitter<boolean> = new EventEmitter();
 
-  constructor() { }
+  constructor(public socketService: SocketService) { }
 
   ngOnInit(): void {
   }
