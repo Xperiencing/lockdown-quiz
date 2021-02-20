@@ -1,8 +1,25 @@
+<div>{{ time }}</div>
+
+<button type="button" (click)="toggleTimer()">start timer</button>
 <div>
-    <h1>{{ tabbo_wordset[0].target_word }}</h1>
+    <h1>{{ currentWord.word }}</h1>
     <div>
         <ul>
-            <li *ngFor="let word of tabbo_wordset[0].forbidden_words">{{ word }}</li>
+            <li *ngFor="let word of currentWord.prohibited">{{ word }}</li>
         </ul>
     </div>
 </div>
+
+<div>
+    <ul>
+        <li *ngFor="let message of messageLog">
+            {{ message.user }}: {{ message.text }}
+        </li>
+    </ul>
+</div>
+
+<form (ngSubmit)="onSubmit()">
+    <input id="message" type="text" name="message" [(ngModel)]="message.text">
+
+    <button type="submit" id="submit-button">Submit</button>
+</form>

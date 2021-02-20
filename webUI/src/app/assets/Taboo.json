@@ -1,8 +1,0 @@
-[{
-    "target_word": "Double",
-    "forbidden_words": ["Twice", "Amount", "Number", "Two"]
-},
-{
-    "target_word": "House",
-    "forbidden_words": ["Building", "Home", "Estate", "Live"]
-}]

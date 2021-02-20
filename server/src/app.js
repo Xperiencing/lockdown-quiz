@@ -24,8 +24,12 @@ io.on("connection", socket => {
         roomList.push({ roomId: user.roomId, userList: [user.username] });
       }
 
-      socket.to(user.roomId).emit("userList", roomList.find(x => x.roomId == user.roomId).userList);
+      io.in(user.roomId).emit("userList", roomList.find(x => x.roomId == user.roomId).userList);
     });
+
+    socket.on("sendMessageTaboo", message => {
+      io.in(message.roomId).emit('receiveMessageTaboo', message.message);
+    })
 
     socket.on("sliderChange", slider => {
       socket.to(slider.roomId).emit("slider", slider);

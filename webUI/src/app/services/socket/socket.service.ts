@@ -6,6 +6,9 @@ import { Socket } from 'ngx-socket-io';
 })
 export class SocketService {
 
+  public roomId: string;
+  public username: string;
+  
   userList = this.socket.fromEvent<string[]>('userList');
 
   constructor(private socket: Socket) { }

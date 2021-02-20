@@ -11,13 +11,11 @@ import { SocketService } from 'src/app/services/socket/socket.service';
 })
 export class GamePlayComponent implements OnInit, OnDestroy {
 
-  private roomId: string;
   private gameId: string;
 
-  public username: string;
   public usernameSelectStage: boolean = false;
   public lobbyListStage: boolean = false;
-  public playTabbo: boolean = false;
+  public playTaboo: boolean = false;
 
   public userList: string[];
   private _userListSub: Subscription;
@@ -29,13 +27,13 @@ export class GamePlayComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this._userListSub = this.socketService.userList.subscribe(users => this.userList = users);
 
-    this.roomId = this.route.snapshot.paramMap.get('id');
+    this.socketService.roomId = this.route.snapshot.paramMap.get('id');
     this.gameId = this.route.snapshot.paramMap.get('game');
 
     if(this.cookieService.check('lockdown-quiz-username')) {
-      this.username = this.cookieService.get('lockdown-quiz-username');
+      this.socketService.username = this.cookieService.get('lockdown-quiz-username');
 
-      this.socketService.joinRoom(this.username, this.roomId);
+      this.socketService.joinRoom(this.socketService.username, this.socketService.roomId);
 
       this.lobbyListStage = true;
     }
@@ -50,9 +48,9 @@ export class GamePlayComponent implements OnInit, OnDestroy {
 
   public onUserNameEntered(username: string) {
     this.cookieService.set('lockdown-quiz-username', username);
-    this.username = username;
+    this.socketService.username = username;
 
-    this.socketService.joinRoom(this.username, this.roomId);
+    this.socketService.joinRoom(this.socketService.username, this.socketService.roomId);
 
     this.usernameSelectStage = false;
     this.lobbyListStage = true;
@@ -63,7 +61,7 @@ export class GamePlayComponent implements OnInit, OnDestroy {
 
     switch(this.gameId) {
       case "taboo":
-        this.playTabbo = true;
+        this.playTaboo = true;
     }
   }
 }
