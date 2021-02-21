@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { Message } from 'src/app/models/message';
+import { TabooModel } from 'src/app/models/taboo';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,11 @@ export class TabooService {
 
   constructor(private socket: Socket) { }
 
-  public sendMessage(roomId: string, message: Message, cardId: number) {
-    this.socket.emit('sendMessageTaboo', {roomId: roomId, message: message, cardId: cardId });
+  public sendMessage(roomId: string, message: Message, currentWordIndex: number) {
+    this.socket.emit('sendMessageTaboo', {roomId: roomId, message: message, currentWordIndex: currentWordIndex });
+  }
+
+  public sendTabooWord(roomId: string, tabooWords: string[]) {
+    this.socket.emit('sendTabooWords', { roomId: roomId, tabooWords: tabooWords });
   }
 }

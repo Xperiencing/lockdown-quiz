@@ -14,6 +14,7 @@ import { GamePlayComponent } from './components/game-play/game-play.component';
 import { EnterNameComponent } from './components/enter-name/enter-name.component';
 import { LobbyListComponent } from './components/lobby-list/lobby-list.component';
 import { TabooComponent } from './components/taboo/taboo.component';
+import { EndGameSummaryComponent } from './components/end-game-summary/end-game-summary.component';
 
 const config: SocketIoConfig = { url: 'http://localhost:4444', options: {} };
 
@@ -25,7 +26,8 @@ const config: SocketIoConfig = { url: 'http://localhost:4444', options: {} };
     GamePlayComponent,
     EnterNameComponent,
     LobbyListComponent,
-    TabooComponent
+    TabooComponent,
+    EndGameSummaryComponent
   ],
   imports: [
     BrowserModule,

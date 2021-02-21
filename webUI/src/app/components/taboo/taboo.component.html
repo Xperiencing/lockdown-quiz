@@ -1,25 +1,33 @@
-<div>{{ time }}</div>
-
-<button type="button" (click)="toggleTimer()">start timer</button>
-<div>
-    <h1>{{ currentWord.word }}</h1>
-    <div>
+<div *ngIf="!endGame">
+    <div>{{ time }}</div>
+    <button type="button" (click)="toggleTimer()">start timer</button>
+    
+    <div *ngIf="isUsersTurn && readyCheck">
+        <h1>{{ currentWordsetForTurn[currentWordIndex].word }}</h1>
+        <div>
+            <ul>
+                <li *ngFor="let word of currentWordsetForTurn[currentWordIndex].prohibited">{{ word }}</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div> 
         <ul>
-            <li *ngFor="let word of currentWord.prohibited">{{ word }}</li>
+            <li *ngFor="let message of messageLog">
+                {{ message.user.username }}: {{ message.text }}
+            </li>
         </ul>
     </div>
+    
+    <form *ngIf="!isUsersTurn" (ngSubmit)="onSubmit()">
+        <input id="message" type="text" name="message" [(ngModel)]="message.text" [disabled]="!readyCheck">
+    
+        <button type="submit" id="submit-button">Submit</button>
+    </form>
+    
+    <button type="button" *ngIf="isUsersTurn && !readyCheck" (click)="onReady()">Ready</button>
 </div>
 
-<div>
-    <ul>
-        <li *ngFor="let message of messageLog">
-            {{ message.user.username }}: {{ message.text }}
-        </li>
-    </ul>
+<div *ngIf="endGame">
+    <app-end-game-summary [userList]="userList"></app-end-game-summary>
 </div>
-
-<form (ngSubmit)="onSubmit()">
-    <input id="message" type="text" name="message" [(ngModel)]="message.text">
-
-    <button type="submit" id="submit-button">Submit</button>
-</form>

@@ -12,6 +12,7 @@ export class SocketService {
   
   userList = this.socket.fromEvent<User[]>('userList');
   shouldStartGame = this.socket.fromEvent<boolean>('startGameEvent');
+  readyEvent = this.socket.fromEvent<boolean>('readyEvent');
 
   constructor(private socket: Socket) { }
 
@@ -23,6 +24,10 @@ export class SocketService {
     this.socket.emit('startGame', this.roomId );
   }
 
+  ready() {
+    this.socket.emit('ready', this.roomId);
+  }
+
   public newRoomId() {
     let text = '';
     const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -31,6 +36,17 @@ export class SocketService {
       text += possible.charAt(Math.floor(Math.random() * possible.length));
     }
 
+    return text;
+  }
+
+  public newUserId() {
+    let text = '';
+    const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    
+    for (let i = 0; i < 10; i++) {
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    
     return text;
   }
 }

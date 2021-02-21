@@ -27,11 +27,11 @@ export class GamePlayComponent implements OnInit, OnDestroy {
     private socketService: SocketService) { }
 
   ngOnInit(): void {
-    this.socketService.user = new User("");
+    this.socketService.user = new User(this.socketService.newUserId(), "");
 
     this._userListSub = this.socketService.userList.subscribe(users => { 
       this.userList = users;
-      this.socketService.user = this.userList.find(x => x.username == this.socketService.user.username);
+      this.socketService.user = this.userList.find(x => x.id == this.socketService.user.id);
     });
 
     this._lobbySub = this.socketService.shouldStartGame.subscribe(x => {
