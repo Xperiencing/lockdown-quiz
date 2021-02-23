@@ -18,7 +18,7 @@ export class TabooComponent implements OnInit, OnDestroy {
 
     private static ROUNDS = 1;
     private static NUM_WORDS = 5;
-    public static TIME = 10;
+    public static TIME = 30;
 
     private tabooWordset: Array<TabooModel>;
     public currentWordsetForTurn: TabooModel[] = [];

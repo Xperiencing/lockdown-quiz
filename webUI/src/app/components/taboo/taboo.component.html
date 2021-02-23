@@ -1,7 +1,7 @@
 <div *ngIf="!endGame">
-    <div>{{ time }}</div>
+    <div class="timer">{{ time }}</div>
     <button type="button" (click)="toggleTimer()">start timer</button>
-    
+
     <div *ngIf="isUsersTurn && readyCheck">
         <h1>{{ currentWordsetForTurn[currentWordIndex].word }}</h1>
         <div>
@@ -10,21 +10,21 @@
             </ul>
         </div>
     </div>
-    
-    <div> 
+
+    <div>
         <ul>
             <li *ngFor="let message of messageLog">
                 {{ message.user.username }}: {{ message.text }}
             </li>
         </ul>
     </div>
-    
+
     <form *ngIf="!isUsersTurn" (ngSubmit)="onSubmit()">
         <input id="message" type="text" name="message" [(ngModel)]="message.text" [disabled]="!readyCheck">
-    
+
         <button type="submit" id="submit-button">Submit</button>
     </form>
-    
+
     <button type="button" *ngIf="isUsersTurn && !readyCheck" (click)="onReady()">Ready</button>
 </div>
 
