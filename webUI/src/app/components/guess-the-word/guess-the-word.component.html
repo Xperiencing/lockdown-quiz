@@ -1,0 +1,19 @@
+<div *ngIf="!showEndScreen">
+    <div>{{ time }}</div>
+    <p *ngFor="let wordLower of wordsAlphabeticalBelow">{{ wordLower }}</p>
+
+    <form #form="ngForm" (ngSubmit)="onSubmit()">
+        <input id="userWord" name="userWord" type="text" [(ngModel)]="userWord">
+    
+        <button type="submit" id="submit-button">Submit</button>
+    </form>
+
+    <p *ngFor="let wordAbove of wordsAlphabeticalAbove">{{ wordAbove }}</p>
+</div>
+
+<div *ngIf="showEndScreen">
+    <h1>{{ winningUser }} is the winner!</h1>
+    <p>It was got in {{ winningGuesses }} guesses in a time of {{ winningTime }} seconds.</p>
+
+    <button type="button" [disabled]="!this.socketService.user.isHost" (click)="restartGame()">{{ this.socketService.user.isHost ? "Restart" : "Waiting for Host"}}</button>
+</div>

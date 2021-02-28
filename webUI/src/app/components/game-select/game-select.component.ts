@@ -20,4 +20,9 @@ export class GameSelectComponent implements OnInit {
     var id = this.socketService.newRoomId();
     this.router.navigate(['/taboo/' + id]);
   }
+
+  playGuessTheWord() {
+    var id = this.socketService.newRoomId();
+    this.router.navigate(['/guess-the-word/' + id]);
+  }
 }

@@ -17,6 +17,8 @@ export class GamePlayComponent implements OnInit, OnDestroy {
   public usernameSelectStage: boolean = false;
   public lobbyListStage: boolean = false;
   public playTaboo: boolean = false;
+  public playFakinIt: boolean = false;
+  public playGuessTheWord: boolean = false;
 
   public userList: User[];
   private _userListSub: Subscription;
@@ -55,6 +57,7 @@ export class GamePlayComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this._userListSub.unsubscribe();
+    this._lobbySub.unsubscribe();
   }
 
   public onUserNameEntered(username: string) {
@@ -77,6 +80,10 @@ export class GamePlayComponent implements OnInit, OnDestroy {
     switch(this.gameId) {
       case "taboo":
         this.playTaboo = true;
+      case "fakin_it":
+        this.playFakinIt = true;
+      case "guess-the-word":
+        this.playGuessTheWord = true;
     }
   }
 }

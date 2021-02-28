@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-enter-name',
@@ -10,11 +10,15 @@ export class EnterNameComponent implements OnInit {
 
   @Output() usernameSelect: EventEmitter<string> = new EventEmitter();
 
-  usernameForm = this.formBuilder.group({
-    username: '',
+  public username: string = "";
+
+  usernameForm = new FormGroup({
+    username: new FormControl(this.username, [
+      Validators.required,
+    ])
   });
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor() { }
 
   ngOnInit(): void {
   }
