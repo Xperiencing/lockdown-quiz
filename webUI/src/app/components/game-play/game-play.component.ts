@@ -80,10 +80,13 @@ export class GamePlayComponent implements OnInit, OnDestroy {
     switch(this.gameId) {
       case "taboo":
         this.playTaboo = true;
+        break;
       case "fakin_it":
         this.playFakinIt = true;
+        break;
       case "guess-the-word":
         this.playGuessTheWord = true;
+        break;
     }
   }
 }

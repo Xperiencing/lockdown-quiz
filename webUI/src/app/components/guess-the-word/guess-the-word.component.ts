@@ -49,6 +49,9 @@ export class GuessTheWordComponent implements OnInit {
             this.winningTime = data.time;
             this.winningUser = data.username;
 
+            this.wordsAlphabeticalAbove = [];
+            this.wordsAlphabeticalBelow = [];
+
             this.showEndScreen = true;
         });
 

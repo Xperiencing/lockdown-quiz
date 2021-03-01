@@ -80,7 +80,7 @@ io.on("connection", socket => {
     });
 
     socket.on("restartGTW", roomId => {
-        io.in(roomId).emit("winGTWEvent", true);
+        io.in(roomId).emit("restartGTWEvent", true);
     });
 });
 
