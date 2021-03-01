@@ -35,8 +35,12 @@ div {
             background-color: styles.$taboo-background-color;
         }
         &.enter-name-switch {
-            color: #0c2231;
+            color: white;
             background-color: styles.$switch-background-color;
+        }
+        &.enter-name-guess-word {
+            color: white;
+            background-color: styles.$guess-word-background-color;
         }
         
         #game-name {
