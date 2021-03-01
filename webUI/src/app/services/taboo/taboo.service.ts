@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { Message } from 'src/app/models/message';
-import { TabooModel } from 'src/app/models/taboo';
 
 @Injectable({
   providedIn: 'root'

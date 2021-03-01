@@ -60,7 +60,7 @@ io.on("connection", socket => {
     });
 
     socket.on("sendTabooWords", words => {
-        if(wordsList.find(x => x.roomId == words.roomId)) {
+        if (wordsList.find(x => x.roomId == words.roomId)) {
             wordsList.find(x => x.roomId == words.roomId).tabooWords = words.tabooWords;
         } else {
             wordsList.push(words);
@@ -68,15 +68,19 @@ io.on("connection", socket => {
     });
 
     socket.on("sendMessageTaboo", message => {
-        if(wordsList.find(x => x.roomId == message.roomId).tabooWords[message.currentWordIndex].toLowerCase() == message.message.text.toLowerCase()) {
+        if (wordsList.find(x => x.roomId == message.roomId).tabooWords[message.currentWordIndex].toLowerCase() == message.message.text.toLowerCase()) {
             message.message.isCorrect = true;
         }
 
         io.in(message.roomId).emit('receiveMessageTaboo', message.message);
     });
 
-  socket.on("sliderChange", slider => {
-        socket.to(slider.roomId).emit("slider", slider);
+    socket.on("winGTW", object => {
+        io.in(object.roomId).emit("winGTWEvent", object);
+    });
+
+    socket.on("restartGTW", roomId => {
+        io.in(roomId).emit("winGTWEvent", true);
     });
 });
 

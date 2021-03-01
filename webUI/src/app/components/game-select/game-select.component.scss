@@ -1,9 +1,21 @@
+@use '../../../styles.scss' as styles;
+
 :host {
     @apply flex flex-col flex-grow w-full;
 }
 
-.background {
-    background-color: rgb(0, 135, 180);
+.background-switch {
+    background-color: styles.$switch-background-color;
+    width: 100%;
+}
+
+.background-taboo {
+    background-color: styles.$taboo-background-color;
+    width: 100%;
+}
+
+.background-guess-word {
+    background-color: styles.$guess-word-background-color;
     width: 100%;
 }
 

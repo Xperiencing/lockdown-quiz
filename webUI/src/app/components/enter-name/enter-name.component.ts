@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-enter-name',
@@ -7,17 +7,24 @@ import { FormBuilder } from '@angular/forms';
   styleUrls: ['./enter-name.component.scss']
 })
 export class EnterNameComponent implements OnInit {
-  @Input() gameName: string;
+  @Input() gameId: string;
 
   @Output() usernameSelect: EventEmitter<string> = new EventEmitter();
 
-  usernameForm = this.formBuilder.group({
-    username: '',
+
+  public username: string = "";
+  public gameName: string;
+
+  usernameForm = new FormGroup({
+    username: new FormControl(this.username, [
+      Validators.required,
+    ])
   });
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor() { }
 
   ngOnInit(): void {
+    this.gameName = this.gameId.replace(/-/g, ' ');
   }
 
   onSubmit() {
@@ -25,11 +32,13 @@ export class EnterNameComponent implements OnInit {
   }
 
   public getSelectedGame() {
-    switch (this.gameName) {
+    switch (this.gameId) {
       case 'taboo':
         return 'enter-name-taboo';
-        case 'switch':
-          return 'enter-name-switch';
+      case 'switch':
+        return 'enter-name-switch';
+      case 'guess-the-word':
+        return 'enter-name-guess-word';
       default:
         return 'enter-name-default';
     }

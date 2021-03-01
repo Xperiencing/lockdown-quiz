@@ -1,7 +1,6 @@
 <app-enter-name 
-    *ngIf="usernameSelectStage" (usernameSelect)="onUserNameEntered($event)" class="flex" [gameName]="GetGameId">
+    *ngIf="usernameSelectStage" (usernameSelect)="onUserNameEntered($event)" class="flex" [gameId]="GetGameId">
 </app-enter-name>
-
 
 <div *ngIf="lobbyListStage">
     <app-lobby-list [userList]="userList" (shouldStartGame)="onShouldStartGame()"></app-lobby-list>
@@ -11,3 +10,10 @@
     <app-taboo [userList]="userList"></app-taboo>
 </div>
 
+<div *ngIf="playFakinIt">
+    <app-fakin-it [userList]="userList"></app-fakin-it>
+</div>
+
+<div *ngIf="playGuessTheWord">
+    <app-guess-the-word [userList]="userList"></app-guess-the-word>
+</div>
