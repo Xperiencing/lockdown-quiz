@@ -14,6 +14,10 @@ export class GamePlayComponent implements OnInit, OnDestroy {
 
   private gameId: string;
 
+  get GetGameId() {
+    return this.gameId;
+  }
+  
   public usernameSelectStage: boolean = false;
   public lobbyListStage: boolean = false;
   public playTaboo: boolean = false;

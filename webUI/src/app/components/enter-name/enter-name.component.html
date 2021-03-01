@@ -1,8 +1,25 @@
-<form [formGroup]="usernameForm" (ngSubmit)="onSubmit()">
-    <label for="username">
-        Username
-    </label>
-    <input id="username" type="text" formControlName="username">
+<div id="enter-name-container" class="flex w-full flex-col sm:flex-col md:flex-row">
+    <form [formGroup]="usernameForm" (ngSubmit)="onSubmit()" [ngClass]="getSelectedGame()"
+        id="left-panel" class="flex flex-col flex-1 md:flex-none items-center w-ful sm:w-full md:w-5/12">
+    
+        <div class="outline relative border-2 border-gray-300 focus-within:border-blue-500 rounded mb-1">
+            <input type="text" name="username" placeholder=" " autocomplete="off" formControlName="username"
+                class="block p-4 w-full text-lg appearance-none focus:outline-none bg-transparent" />
+            <label for="username" class="absolute top-0 text-lg bg-transparent p-4 pointer-events-none duration-300 origin-0 text-gray-300">Username</label>
+        </div>
+        <button type="submit" id="submit-button" class="min-w-min w-1/6 inline-block whitespace-nowrap">
+            <span class="inline-block mr-2 ml-2 text-white">Submit</span>
+            <svg class="inline-block mb-1 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="1.5rem" height="1.5rem"><path d="M0 0h24v24H0z" fill="none"/><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+        </button>
+    </form>
 
-    <button type="submit" id="submit-button">Submit</button>
-</form>
+
+    <div id="right-panel" class="flex flex-col flex-1" [ngClass]="getSelectedGame()">
+        <div id="game-name">
+            {{gameName}}
+        </div>
+        <div id="enter-name-desc">
+            Enter a username. Then, and only then, may you proceed to have fun.
+        </div>
+    </div>
+</div>

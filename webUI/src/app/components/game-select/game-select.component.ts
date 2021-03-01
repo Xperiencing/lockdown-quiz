@@ -16,8 +16,13 @@ export class GameSelectComponent implements OnInit {
     
   }
 
-  playAgreeDisagreeGame() {
+  playTabooGame() {
     var id = this.socketService.newRoomId();
     this.router.navigate(['/taboo/' + id]);
+  }
+
+  playSwitchGame() {
+    var id = this.socketService.newRoomId();
+    this.router.navigate(['/switch/' + id]);
   }
 }

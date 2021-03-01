@@ -1,6 +1,7 @@
-<div *ngIf="usernameSelectStage">
-    <app-enter-name (usernameSelect)="onUserNameEntered($event)"></app-enter-name>
-</div>
+<app-enter-name 
+    *ngIf="usernameSelectStage" (usernameSelect)="onUserNameEntered($event)" class="flex" [gameName]="GetGameId">
+</app-enter-name>
+
 
 <div *ngIf="lobbyListStage">
     <app-lobby-list [userList]="userList" (shouldStartGame)="onShouldStartGame()"></app-lobby-list>
